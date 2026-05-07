@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/puneethaditya/maeve/session"
+	"github.com/mugiwaraluffy56/maeve/session"
 )
 
 func (s *Store) CreateSnapshot(ctx context.Context, snap session.Snapshot) error {

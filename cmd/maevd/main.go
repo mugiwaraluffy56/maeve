@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/puneethaditya/maeve/server"
+	"github.com/mugiwaraluffy56/maeve/server"
 )
 
 func main() {

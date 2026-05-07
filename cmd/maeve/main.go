@@ -1,6 +1,6 @@
 package main
 
-import "github.com/puneethaditya/maeve/cmd/maeve/cli"
+import "github.com/mugiwaraluffy56/maeve/cmd/maeve/cli"
 
 func main() {
 	cli.Execute()

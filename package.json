@@ -37,6 +37,7 @@
     "onCommand:maeve.compressContext",
     "onCommand:maeve.saveSnapshot",
     "onCommand:maeve.listSnapshots",
+    "onCommand:maeve.installCli",
     "onCommand:maeve.buildCli"
   ],
   "main": "./out/extension.js",
@@ -114,6 +115,11 @@
         "icon": "$(history)"
       },
       {
+        "command": "maeve.installCli",
+        "title": "maeve: Install CLI",
+        "icon": "$(cloud-download)"
+      },
+      {
         "command": "maeve.buildCli",
         "title": "maeve: Build Workspace CLI",
         "icon": "$(tools)"
@@ -144,6 +150,9 @@
         },
         {
           "command": "maeve.listSnapshots"
+        },
+        {
+          "command": "maeve.installCli"
         },
         {
           "command": "maeve.buildCli"

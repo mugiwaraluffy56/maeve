@@ -1,4 +1,4 @@
-module github.com/puneethaditya/maeve
+module github.com/mugiwaraluffy56/maeve
 
 go 1.26.1
 

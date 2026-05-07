@@ -6,9 +6,9 @@ import (
 	"os"
 
 	"github.com/google/uuid"
-	"github.com/puneethaditya/maeve/score"
-	"github.com/puneethaditya/maeve/session"
-	"github.com/puneethaditya/maeve/token"
+	"github.com/mugiwaraluffy56/maeve/score"
+	"github.com/mugiwaraluffy56/maeve/session"
+	"github.com/mugiwaraluffy56/maeve/token"
 )
 
 type Repository interface {

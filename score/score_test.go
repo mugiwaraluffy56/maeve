@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/puneethaditya/maeve/config"
-	"github.com/puneethaditya/maeve/session"
+	"github.com/mugiwaraluffy56/maeve/config"
+	"github.com/mugiwaraluffy56/maeve/session"
 )
 
 func TestScorer_ScoreDiffAboveTerminal(t *testing.T) {

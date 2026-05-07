@@ -28,6 +28,7 @@ panels, plus commands for the common workflow:
 - ingest the current Git diff
 - compress context and copy it to the clipboard
 - save and list snapshots
+- install the CLI into VS Code extension storage
 - build a workspace-local CLI at `.maeve/bin/maeve`
 
 To run it locally:
@@ -39,7 +40,8 @@ npm run compile
 
 Open this folder in VS Code, press `F5`, and use the `maeve` commands from the
 Command Palette. If the `maeve` binary is not installed globally, run
-`maeve: Build Workspace CLI` first.
+`maeve: Install CLI`. When developing this repo locally, `maeve: Build Workspace
+CLI` builds the current source into `.maeve/bin/maeve`.
 
 ## Current scope
 

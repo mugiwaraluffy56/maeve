@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/puneethaditya/maeve/session"
+	"github.com/mugiwaraluffy56/maeve/session"
 )
 
 func TestCompressor_CompressPacksByImportance(t *testing.T) {

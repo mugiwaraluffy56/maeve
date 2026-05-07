@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/puneethaditya/maeve/session"
+	"github.com/mugiwaraluffy56/maeve/session"
 )
 
 func TestStore_SessionLifecycle(t *testing.T) {

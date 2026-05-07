@@ -6,13 +6,13 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/puneethaditya/maeve/compress"
-	"github.com/puneethaditya/maeve/config"
-	"github.com/puneethaditya/maeve/ingest"
-	"github.com/puneethaditya/maeve/score"
-	"github.com/puneethaditya/maeve/session"
-	"github.com/puneethaditya/maeve/store"
-	"github.com/puneethaditya/maeve/token"
+	"github.com/mugiwaraluffy56/maeve/compress"
+	"github.com/mugiwaraluffy56/maeve/config"
+	"github.com/mugiwaraluffy56/maeve/ingest"
+	"github.com/mugiwaraluffy56/maeve/score"
+	"github.com/mugiwaraluffy56/maeve/session"
+	"github.com/mugiwaraluffy56/maeve/store"
+	"github.com/mugiwaraluffy56/maeve/token"
 )
 
 type app struct {

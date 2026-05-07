@@ -22,9 +22,11 @@ type Snapshot = {
 type RunOptions = {
   input?: string;
   allowFailure?: boolean;
+  env?: NodeJS.ProcessEnv;
 };
 
 const output = vscode.window.createOutputChannel("maeve");
+const cliModule = "github.com/mugiwaraluffy56/maeve/cmd/maeve@latest";
 
 let client: MaeveClient;
 let statusProvider: StatusTreeProvider;
@@ -33,7 +35,7 @@ let statusBar: vscode.StatusBarItem;
 let refreshTimer: NodeJS.Timeout | undefined;
 
 export function activate(context: vscode.ExtensionContext): void {
-  client = new MaeveClient();
+  client = new MaeveClient(context);
   statusProvider = new StatusTreeProvider();
   snapshotProvider = new SnapshotTreeProvider();
 
@@ -56,6 +58,7 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand("maeve.compressContext", compressContext),
     vscode.commands.registerCommand("maeve.saveSnapshot", saveSnapshot),
     vscode.commands.registerCommand("maeve.listSnapshots", listSnapshots),
+    vscode.commands.registerCommand("maeve.installCli", installCli),
     vscode.commands.registerCommand("maeve.buildCli", buildCli),
     vscode.workspace.onDidSaveTextDocument(() => {
       if (getConfig().get<boolean>("autoRefresh", true)) {
@@ -202,6 +205,23 @@ async function buildCli(): Promise<void> {
   await refreshAll();
 }
 
+async function installCli(): Promise<void> {
+  const binDir = client.extensionBinDir();
+  const binary = client.extensionBinaryPath();
+  await fs.promises.mkdir(binDir, { recursive: true });
+
+  await withProgress("Installing maeve CLI", () =>
+    client.runTool("go", ["install", cliModule], {
+      env: {
+        ...process.env,
+        GOBIN: binDir,
+      },
+    })
+  );
+  vscode.window.showInformationMessage(`Installed maeve CLI at ${binary}`);
+  await refreshAll();
+}
+
 async function refreshAll(): Promise<void> {
   await Promise.all([refreshStatus(), refreshSnapshots()]);
 }
@@ -214,7 +234,7 @@ async function refreshStatus(): Promise<void> {
   } catch (error) {
     statusProvider.setError(errorMessage(error));
     statusBar.text = "$(warning) maeve";
-    statusBar.tooltip = `${errorMessage(error)}\nRun maeve: Build Workspace CLI or set maeve.executablePath.`;
+    statusBar.tooltip = `${errorMessage(error)}\nRun maeve: Install CLI, maeve: Build Workspace CLI, or set maeve.executablePath.`;
   }
 }
 
@@ -279,6 +299,8 @@ function errorMessage(error: unknown): string {
 }
 
 class MaeveClient {
+  constructor(private readonly context: vscode.ExtensionContext) {}
+
   workspaceFolder(): vscode.WorkspaceFolder | undefined {
     const folders = vscode.workspace.workspaceFolders;
     return folders && folders.length > 0 ? folders[0] : undefined;
@@ -323,6 +345,7 @@ class MaeveClient {
     return new Promise((resolve, reject) => {
       const child = cp.spawn(command, args, {
         cwd,
+        env: options.env,
         shell: false,
         windowsHide: true,
       });
@@ -359,6 +382,14 @@ class MaeveClient {
     });
   }
 
+  extensionBinDir(): string {
+    return path.join(this.context.globalStorageUri.fsPath, "bin");
+  }
+
+  extensionBinaryPath(): string {
+    return path.join(this.extensionBinDir(), process.platform === "win32" ? "maeve.exe" : "maeve");
+  }
+
   private executablePath(): string {
     const workspace = this.workspaceFolder();
     if (workspace) {
@@ -371,6 +402,10 @@ class MaeveClient {
       if (fs.existsSync(localBinary)) {
         return localBinary;
       }
+    }
+    const extensionBinary = this.extensionBinaryPath();
+    if (fs.existsSync(extensionBinary)) {
+      return extensionBinary;
     }
     return getConfig().get<string>("executablePath", "maeve");
   }
@@ -427,9 +462,11 @@ class StatusTreeProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
 
   getChildren(): vscode.TreeItem[] {
     if (this.error) {
+      const canBuild = fs.existsSync(path.join(client.workspaceFolder()?.uri.fsPath ?? "", "cmd", "maeve"));
       return [
-        treeItem("CLI unavailable", this.error, "warning"),
-        commandItem("Build workspace CLI", "maeve.buildCli", "tools"),
+        treeItem("CLI setup needed", this.error, "warning"),
+        commandItem("Install CLI", "maeve.installCli", "cloud-download"),
+        ...(canBuild ? [commandItem("Build workspace CLI", "maeve.buildCli", "tools")] : []),
         commandItem("Refresh", "maeve.refreshStatus", "refresh"),
       ];
     }

@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/puneethaditya/maeve/session"
+	"github.com/mugiwaraluffy56/maeve/session"
 )
 
 type Repository interface {
