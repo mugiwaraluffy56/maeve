@@ -1,0 +1,7 @@
+[compression]
+default_budget_tokens = 200
+
+[session]
+decay_window_hours = 4
+decay_factor = 0.8
+

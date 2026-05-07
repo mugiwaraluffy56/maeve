@@ -1,0 +1,13 @@
+version: "3"
+
+tasks:
+  test:
+    cmds:
+      - go test ./...
+  build:
+    cmds:
+      - go build ./cmd/maeve
+  lint:
+    cmds:
+      - go vet ./...
+

@@ -1,0 +1,24 @@
+[session]
+auto_init          = true
+decay_window_hours = 2
+decay_factor       = 0.7
+
+[compression]
+default_budget_tokens = 8000
+dedup_threshold       = 0.85
+truncation_threshold  = 0.4
+
+[scoring]
+weight_recency        = 0.30
+weight_access_freq    = 0.20
+weight_symbol_type    = 0.25
+weight_diff_coverage  = 0.15
+weight_agent_refs     = 0.10
+
+[server]
+port     = 7432
+mcp_port = 7433
+
+[tokenizer]
+model = "cl100k_base"
+

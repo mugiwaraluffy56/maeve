@@ -1,0 +1,7 @@
+services:
+  maevd:
+    build: .
+    command: ["version"]
+    volumes:
+      - .:/workspace
+

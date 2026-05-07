@@ -1,0 +1,12 @@
+{
+  "name": "maeve",
+  "image": "mcr.microsoft.com/devcontainers/go:1.26",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "golang.Go"
+      ]
+    }
+  }
+}
+

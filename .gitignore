@@ -1,0 +1,53 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Local agent/tooling state
+.claude/
+.agents/
+
+# Environment and local configuration
+.env
+.env.*
+!.env.example
+/maeve.toml
+*.local
+*.local.*
+
+# Go build/test artifacts
+/bin/
+/build/
+/dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+coverage.out
+coverage.html
+*.coverprofile
+
+# Go workspace/vendor cache
+go.work
+go.work.sum
+vendor/
+
+# Runtime data
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.log
+tmp/
+temp/
+.cache/
+
+# Docker/compose local overrides
+docker-compose.override.yml
