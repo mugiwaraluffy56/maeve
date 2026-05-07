@@ -1,0 +1,197 @@
+{
+  "name": "maeve",
+  "displayName": "maeve",
+  "description": "Context management CLI for coding agents",
+  "version": "0.1.0",
+  "publisher": "mugiwaraluffy56",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.92.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "context",
+    "agents",
+    "memory",
+    "compression"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:maeve.contextLens",
+    "onView:maeve.snapshots",
+    "onCommand:maeve.initSession",
+    "onCommand:maeve.refreshStatus",
+    "onCommand:maeve.ingestActiveFile",
+    "onCommand:maeve.ingestSelectedFiles",
+    "onCommand:maeve.ingestGitDiff",
+    "onCommand:maeve.compressContext",
+    "onCommand:maeve.saveSnapshot",
+    "onCommand:maeve.listSnapshots",
+    "onCommand:maeve.buildCli"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "maeve",
+      "properties": {
+        "maeve.executablePath": {
+          "type": "string",
+          "default": "maeve",
+          "description": "Path to the maeve CLI. The extension uses .maeve/bin/maeve in the workspace when present."
+        },
+        "maeve.storePath": {
+          "type": "string",
+          "default": "",
+          "description": "Optional SQLite store path passed to maeve with --store."
+        },
+        "maeve.configPath": {
+          "type": "string",
+          "default": "",
+          "description": "Optional config path passed to maeve with --config."
+        },
+        "maeve.tokenBudget": {
+          "type": "number",
+          "default": 8000,
+          "minimum": 1,
+          "description": "Default token budget used for compression and snapshots."
+        },
+        "maeve.autoRefresh": {
+          "type": "boolean",
+          "default": true,
+          "description": "Refresh maeve status after file save and command completion."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "maeve.initSession",
+        "title": "maeve: Initialize Session",
+        "icon": "$(database)"
+      },
+      {
+        "command": "maeve.refreshStatus",
+        "title": "maeve: Refresh Status",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "maeve.ingestActiveFile",
+        "title": "maeve: Ingest Active File",
+        "icon": "$(file-add)"
+      },
+      {
+        "command": "maeve.ingestSelectedFiles",
+        "title": "maeve: Ingest Selected Files",
+        "icon": "$(files)"
+      },
+      {
+        "command": "maeve.ingestGitDiff",
+        "title": "maeve: Ingest Git Diff",
+        "icon": "$(diff)"
+      },
+      {
+        "command": "maeve.compressContext",
+        "title": "maeve: Compress Context",
+        "icon": "$(archive)"
+      },
+      {
+        "command": "maeve.saveSnapshot",
+        "title": "maeve: Save Snapshot",
+        "icon": "$(save)"
+      },
+      {
+        "command": "maeve.listSnapshots",
+        "title": "maeve: List Snapshots",
+        "icon": "$(history)"
+      },
+      {
+        "command": "maeve.buildCli",
+        "title": "maeve: Build Workspace CLI",
+        "icon": "$(tools)"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "maeve.initSession"
+        },
+        {
+          "command": "maeve.refreshStatus"
+        },
+        {
+          "command": "maeve.ingestActiveFile"
+        },
+        {
+          "command": "maeve.ingestSelectedFiles"
+        },
+        {
+          "command": "maeve.ingestGitDiff"
+        },
+        {
+          "command": "maeve.compressContext"
+        },
+        {
+          "command": "maeve.saveSnapshot"
+        },
+        {
+          "command": "maeve.listSnapshots"
+        },
+        {
+          "command": "maeve.buildCli"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "maeve.ingestSelectedFiles",
+          "group": "maeve@1",
+          "when": "resourceScheme == file"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "maeve.refreshStatus",
+          "when": "view == maeve.contextLens || view == maeve.snapshots",
+          "group": "navigation@1"
+        },
+        {
+          "command": "maeve.saveSnapshot",
+          "when": "view == maeve.snapshots",
+          "group": "navigation@2"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "maeve",
+          "title": "maeve",
+          "icon": "resources/maeve.svg"
+        }
+      ]
+    },
+    "views": {
+      "maeve": [
+        {
+          "id": "maeve.contextLens",
+          "name": "Context Lens"
+        },
+        {
+          "id": "maeve.snapshots",
+          "name": "Snapshots"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "vscode:prepublish": "npm run compile",
+    "test": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@types/vscode": "^1.92.0",
+    "typescript": "^5.8.3"
+  }
+}

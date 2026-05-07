@@ -5,11 +5,15 @@ Thumbs.db
 *.swo
 *~
 .idea/
-.vscode/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
 
 # Local agent/tooling state
 .claude/
 .agents/
+.maeve/
 
 # Environment and local configuration
 .env
@@ -38,6 +42,12 @@ coverage.html
 go.work
 go.work.sum
 vendor/
+
+# VS Code extension build artifacts
+node_modules/
+out/
+.vscode-test/
+*.vsix
 
 # Runtime data
 *.db
