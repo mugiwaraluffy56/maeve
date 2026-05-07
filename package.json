@@ -5,6 +5,14 @@
   "version": "0.1.0",
   "publisher": "mugiwaraluffy56",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mugiwaraluffy56/maeve.git"
+  },
+  "homepage": "https://github.com/mugiwaraluffy56/maeve#readme",
+  "bugs": {
+    "url": "https://github.com/mugiwaraluffy56/maeve/issues"
+  },
   "engines": {
     "vscode": "^1.92.0"
   },
